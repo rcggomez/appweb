@@ -2,6 +2,38 @@
 
 Puedes probar esta aplicación en una máquina virtual local usando VirtualBox y Ubuntu 20.04+.
 
+
+## 🧭 Diagrama de Arquitectura
+
+```plaintext
+         [ Navegador Web del Usuario ]
+                     |
+              Solicitudes HTTP
+                     |
+              ------------------
+              |     NGINX     |   (Puerto 80)
+              ------------------
+                     |
+        Reenvía tráfico a localhost:8080
+                     |
+        ----------------------------
+        |         PHP Server        |  (Embebido en 127.0.0.1:8080)
+        |  - upload.php             |
+        |  - download.php           |
+        ----------------------------
+                     |
+      -------------------------------
+      |        MariaDB (repo)        |
+      |  - Tabla users               |
+      |  - Tabla files               |
+      -------------------------------
+                     |
+      Relación entre archivos y usuarios
+                     |
+       Archivos almacenados en:
+         /opt/uploads/<usuario>/<archivo>
+```
+
 ### ✅ Requisitos
 
 - [VirtualBox](https://www.virtualbox.org/)
@@ -28,7 +60,7 @@ Puedes copiarlo manualmente o descargarlo desde GitHub (reemplaza la URL real de
 
 ```bash
 wget https://raw.githubusercontent.com/TU_USUARIO/TU_REPOSITORIO/main/deploy_repositorio.sh
-
+```
 ### Permisos y ejecucion
 chmod +x deploy_repositorio.sh
 ./deploy_repositorio.sh
